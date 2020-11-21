@@ -1,4 +1,4 @@
-package handler;
+package com.wso2.apim.transport.headers.handler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
