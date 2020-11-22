@@ -6,6 +6,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.synapse.MessageContext;
 import org.apache.synapse.core.axis2.Axis2MessageContext;
 import org.apache.synapse.transport.nhttp.NhttpConstants;
+import org.apache.synapse.transport.passthru.PassThroughConstants;
+import org.apache.synapse.transport.passthru.SourceRequest;
+import org.apache.synapse.transport.passthru.util.PassThroughTransportUtils;
 
 import java.util.*;
 
@@ -115,5 +118,21 @@ public class TransportHeaderUtil {
     public static Map getExcessTransportHeaders(MessageContext synCtx) {
         return (Map)((Axis2MessageContext) synCtx).getAxis2MessageContext().
                 getProperty(NhttpConstants.EXCESS_TRANSPORT_HEADERS);
+    }
+
+    /**
+     * Determines whether Response headers must be removed in response
+     *
+     * @param synCtx Synapse message context
+     * @param request Source Request retrieved from the message context
+     * @return true or false
+     */
+    public static boolean isRemovingResponseHeadersiInResponseRequired(MessageContext synCtx, SourceRequest request) {
+        if (PassThroughConstants.HTTP_OPTIONS.equals(request.getMethod())) {
+            return true;
+        }
+        int http_sc = PassThroughTransportUtils.determineHttpStatusCode(
+                ((Axis2MessageContext) synCtx).getAxis2MessageContext());
+        return synCtx.getProperty(TransportHeaderUtil.RESPONSE_INFLOW_INVOKED) == null && http_sc >= 400;
     }
 }
