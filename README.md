@@ -23,8 +23,8 @@ Please follow the steps below to configure the given jar in your environment.
 ## Configuration
 
 | Parameter Name | Description  |
-| ------------- : | ------------:|
+| ------------- | ------------|
 | removeRequestHeadersOnFail | `true` or `false` indicating whether to remove the Request headers from the response in a failure scenario. Default value is `false` |
-| preserveRequestHeadersOnFail      | List of headers preserved while removing request headers from the response. Provide a Comma seperated String. Deafult is empty. This list of headers will be preserved only when `removeRequestHeadersOnFail` is set to true |
-| excludeRequestHeaders | List of well known request headers that should be removed in a Response to the client. Provide a Comma seperated String. Default list is empty. |
-| excludeResponseHeaders |    List of well known response headers that should be removed in a Request sent to backend. Provide a Comma seperated String. Default list is empty  |
+| preserveRequestHeadersOnFail      | Comma separated List of headers preserved while removing request headers from the response.  Default is empty. This list of headers will be preserved only when `removeRequestHeadersOnFail` is set to true |
+| excludeRequestHeaders | Comma separated List of well known request headers that should be removed in a Response to the client. Default list is empty. |
+| excludeResponseHeaders |    Comma separated List of well known response headers that should be removed in a Request sent to backend. Default list is empty  |
