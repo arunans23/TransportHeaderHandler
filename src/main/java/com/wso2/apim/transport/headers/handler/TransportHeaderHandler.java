@@ -15,7 +15,7 @@ import java.util.List;
 public class TransportHeaderHandler extends AbstractSynapseHandler {
     private static final Log log = LogFactory.getLog(TransportHeaderHandler.class);
 
-    private boolean isRemoveRequestHeadersOnFailEnabled = false;
+    private boolean isRemoveRequestHeadersOnFaultEnabled = false;
 
     /** Well-known request headers to be removed in a response */
     private List<String> standardRequestHeaders = new ArrayList<String>();
@@ -87,7 +87,7 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
             log.debug("Removing headers completed in response out flow");
         }
 
-        if (this.isRemoveRequestHeadersOnFailEnabled) {
+        if (this.isRemoveRequestHeadersOnFaultEnabled) {
             //Removes all the headers present in the request if the request has not reached the backend.
             NHttpConnection sourceHttpConnection =
                     (NHttpConnection)((Axis2MessageContext)synCtx).getAxis2MessageContext().
@@ -132,7 +132,7 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
      *
      * @param preserveHeaders Comma separated header list
      */
-    public void setPreserveRequestHeadersOnFail(String preserveHeaders) {
+    public void setPreserveRequestHeadersOnFault(String preserveHeaders) {
         this.preserveRequestHeaders = TransportHeaderUtil.populateStandardHeaders(preserveHeaders);
     }
 
@@ -141,7 +141,7 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
      *
      * @param isEnable Boolean flag
      */
-    public void setRemoveRequestHeadersOnFail(boolean isEnable) {
-        this.isRemoveRequestHeadersOnFailEnabled = isEnable;
+    public void setRemoveRequestHeadersOnFault(boolean isEnable) {
+        this.isRemoveRequestHeadersOnFaultEnabled = isEnable;
     }
 }
