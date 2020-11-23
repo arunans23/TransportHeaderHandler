@@ -45,15 +45,11 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
      */
     public boolean handleRequestOutFlow(MessageContext synCtx) {
 
-        if (log.isDebugEnabled()) {
-            log.debug("Starting to remove standard Response headers defined from the request out flow.");
-        }
+        log.debug("Starting to remove standard Response headers defined from the request out flow.");
         //remove all the standard well known response headers from the request outgoing
         TransportHeaderUtil.removeTransportHeadersFromList(synCtx, this.standardResponseHeaders);
         TransportHeaderUtil.removeExcessTransportHeadersFromList(synCtx, this.standardResponseHeaders);
-        if (log.isDebugEnabled()) {
-            log.debug("Removing headers completed in request out flow");
-        }
+        log.debug("Removing headers completed in request out flow");
         return true;
     }
 
@@ -77,15 +73,11 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
      * @return true
      */
     public boolean handleResponseOutFlow(MessageContext synCtx) {
-        if (log.isDebugEnabled()) {
-            log.debug("Starting to remove standard Request headers defined from the response out flow.");
-        }
+        log.debug("Starting to remove standard Request headers defined from the response out flow.");
         //remove all the standard well known request headers from the final response
         TransportHeaderUtil.removeTransportHeadersFromList(synCtx, this.standardRequestHeaders);
         TransportHeaderUtil.removeExcessTransportHeadersFromList(synCtx, this.standardRequestHeaders);
-        if (log.isDebugEnabled()) {
-            log.debug("Removing headers completed in response out flow");
-        }
+        log.debug("Removing headers completed in response out flow");
 
         if (this.isRemoveRequestHeadersOnFaultEnabled) {
             //Removes all the headers present in the request if the request has not reached the backend.
@@ -93,7 +85,7 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
                     (NHttpConnection)((Axis2MessageContext)synCtx).getAxis2MessageContext().
                             getProperty(TransportHeaderUtil.PASSTHROUGH_SOURCE_CONNECTION);
             SourceRequest sourceRequest = SourceContext.getRequest(sourceHttpConnection);
-            if (TransportHeaderUtil.isRemovingResponseHeadersiInResponseRequired(synCtx, sourceRequest)) {
+            if (TransportHeaderUtil.isRemovingResponseHeadersInResponseRequired(synCtx, sourceRequest)) {
                 TransportHeaderUtil.removeRequestHeadersFromResponseHeaders(
                         sourceRequest.getHeaders(), TransportHeaderUtil.getTransportHeaders(synCtx),
                         this.preserveRequestHeaders);
@@ -132,7 +124,7 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
      *
      * @param preserveHeaders Comma separated header list
      */
-    public void setPreserveRequestHeadersOnFault(String preserveHeaders) {
+    public void setPreserveRequestHeaders(String preserveHeaders) {
         this.preserveRequestHeaders = TransportHeaderUtil.populateStandardHeaders(preserveHeaders);
     }
 
@@ -141,7 +133,7 @@ public class TransportHeaderHandler extends AbstractSynapseHandler {
      *
      * @param isEnable Boolean flag
      */
-    public void setRemoveRequestHeadersOnFault(boolean isEnable) {
+    public void setRemoveRequestHeaders(boolean isEnable) {
         this.isRemoveRequestHeadersOnFaultEnabled = isEnable;
     }
 }

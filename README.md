@@ -9,8 +9,8 @@ Please follow the steps below to configure the given jar in your environment.
 3) Add the following configurations to <APIM_HOME>/repository/conf/synapse-handlers.xml file
 ```
 <handler name = "TransportHeaderHandler" class="com.wso2.apim.transport.headers.handler.TransportHeaderHandler">
-    <parameter name="removeRequestHeadersOnFault" value="true"/>
-    <parameter name="preserveRequestHeadersOnFault" value=""/>
+    <parameter name="removeRequestHeaders" value="true"/>
+    <parameter name="preserveRequestHeaders" value=""/>
     <parameter name="excludeRequestHeaders" value=""/>
     <parameter name="excludeResponseHeaders" value=""/>
 </handler>
@@ -24,7 +24,7 @@ Please follow the steps below to configure the given jar in your environment.
 
 | Parameter Name | Description  |
 | ------------- | ------------|
-| removeRequestHeadersOnFault | `true` or `false` indicating whether to remove the Request headers from the response in a failure scenario. Default value is `false` |
-| preserveRequestHeadersOnFault      | Comma separated List of headers preserved while removing request headers from the response.  Default is empty. This list of headers will be preserved only when `removeRequestHeadersOnFail` is set to true |
+| removeRequestHeaders | `true` or `false` indicating whether to remove the Request headers from the response in a failure scenario. For OPTIONS call, request headers will always be removed. Default value is `false` |
+| preserveRequestHeaders      | Comma separated List of headers preserved while removing request headers from the response.  Default is empty. This list of headers will be preserved only when `removeRequestHeadersOnFail` is set to true |
 | excludeRequestHeaders | Comma separated List of well known request headers that should be removed in a Response to the client. Default list is empty. |
 | excludeResponseHeaders |    Comma separated List of well known response headers that should be removed in a Request sent to backend. Default list is empty  |

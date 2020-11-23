@@ -10,13 +10,18 @@ import org.apache.synapse.transport.passthru.PassThroughConstants;
 import org.apache.synapse.transport.passthru.SourceRequest;
 import org.apache.synapse.transport.passthru.util.PassThroughTransportUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 
 public class TransportHeaderUtil {
     private static final Log log = LogFactory.getLog(TransportHeaderUtil.class);
 
     public static final String PASSTHROUGH_SOURCE_CONNECTION = "pass-through.Source-Connection";
-    public static final String RESPONSE_INFLOW_INVOKED = "RESPONSE_INFLOW_INVOKED";
+    public static final String RESPONSE_INFLOW_INVOKED = "HANDLER_INTERNAL_RESPONSE_INFLOW_INVOKED";
 
     /**
      * Populates standard request headers from comma separate string.
@@ -127,7 +132,7 @@ public class TransportHeaderUtil {
      * @param request Source Request retrieved from the message context
      * @return true or false
      */
-    public static boolean isRemovingResponseHeadersiInResponseRequired(MessageContext synCtx, SourceRequest request) {
+    public static boolean isRemovingResponseHeadersInResponseRequired(MessageContext synCtx, SourceRequest request) {
         if (PassThroughConstants.HTTP_OPTIONS.equals(request.getMethod())) {
             return true;
         }
