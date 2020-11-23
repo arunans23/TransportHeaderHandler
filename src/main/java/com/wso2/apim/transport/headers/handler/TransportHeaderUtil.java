@@ -11,7 +11,6 @@ import org.apache.synapse.transport.passthru.SourceRequest;
 import org.apache.synapse.transport.passthru.util.PassThroughTransportUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +33,8 @@ public class TransportHeaderUtil {
         List<String> standardHeaders = new ArrayList<String>();
         if (StringUtils.isNotEmpty(standardHeadersStr)) {
             String[] headerList = standardHeadersStr.trim().split(",");
-            if (headerList.length > 0) {
-                standardHeaders.addAll(Arrays.asList(headerList));
+            for (String header: headerList) {
+                standardHeaders.add(header.trim());
             }
         }
         return standardHeaders;
